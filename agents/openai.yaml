@@ -1,0 +1,4 @@
+interface:
+  display_name: "Asana"
+  short_description: "Access Asana workspaces, projects, tasks, and users."
+  default_prompt: "Use scripts/check_prereqs.sh first, then run Asana operations through scripts/execute_action.py. Treat read actions as default and only use --allow-write after explicit user approval."
