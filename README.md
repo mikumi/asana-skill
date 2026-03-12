@@ -1,6 +1,8 @@
 # asana-skill
 
+```bash
 npx skills add --global git@github.com:mikumi/asana-skill.git
+```
 
 ## Notes
 
