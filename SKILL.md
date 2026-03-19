@@ -28,11 +28,7 @@ Use this skill to run repeatable Asana actions through scripts instead of embedd
 
 ## Action Execution
 
-Run scripts from the skill folder:
-
-```bash
-cd /Users/michael/.codex/skills/asana
-```
+Run scripts from the skill folder.
 
 Show all available actions and modes:
 
