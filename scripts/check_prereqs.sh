@@ -1,21 +1,17 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-if ! command -v python3 >/dev/null 2>&1; then
-  echo 'python3: NOT_INSTALLED'
-  echo 'Install python3 first.'
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
+if ! command -v uv >/dev/null 2>&1; then
+  echo 'uv: NOT_INSTALLED'
+  echo 'Install with: brew install uv'
   exit 1
 fi
 
-echo "python3: $(python3 --version 2>/dev/null)"
+echo "uv: $(uv --version)"
 
-if python3 -c "import asana" >/dev/null 2>&1; then
-  echo 'asana-python: INSTALLED'
-else
-  echo 'asana-python: NOT_INSTALLED'
-  echo 'Install with: pip3 install asana'
-  exit 1
-fi
+uv run --script "$SCRIPT_DIR/execute_action.py" --runtime-check
 
 if [[ -n "${ASANA_ACCESS_TOKEN:-}" ]]; then
   echo 'asana-token: SET'

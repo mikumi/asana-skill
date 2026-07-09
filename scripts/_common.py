@@ -16,7 +16,7 @@ def get_client():
   try:
     import asana
   except ImportError:
-    fail('Python package "asana" is not installed. Install with: pip3 install asana', 2)
+    fail('Python package "asana" is not installed. Run scripts/check_prereqs.sh.', 2)
 
   configuration = asana.Configuration()
   configuration.access_token = token

@@ -10,9 +10,15 @@ scripts/check_prereqs.sh
 
 The check validates:
 
-1. `python3` is installed
-2. `asana` Python package is installed
+1. `uv` is installed
+2. `asana` Python package can be provisioned from `scripts/execute_action.py` script metadata
 3. `ASANA_ACCESS_TOKEN` is set
+
+If `uv` is missing:
+
+```bash
+brew install uv
+```
 
 If token is missing:
 

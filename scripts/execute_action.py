@@ -1,4 +1,11 @@
-#!/usr/bin/env python3
+#!/usr/bin/env -S uv run --script
+# /// script
+# requires-python = ">=3.12,<3.13"
+# dependencies = [
+#   "asana>=5,<6",
+# ]
+# ///
+import importlib.metadata
 import subprocess
 import sys
 from pathlib import Path
@@ -22,6 +29,7 @@ def _print_usage():
   print('Usage:')
   print('  scripts/execute_action.py [--allow-write] <action> [action-args]')
   print('  scripts/execute_action.py --list-actions')
+  print('  scripts/execute_action.py --runtime-check')
   print('')
   print('Examples:')
   print('  scripts/execute_action.py list_workspaces')
@@ -39,6 +47,7 @@ def _print_actions():
 def _parse(argv):
   allow_write = False
   list_actions = False
+  runtime_check = False
   remaining = []
 
   for token in argv:
@@ -46,17 +55,35 @@ def _parse(argv):
       allow_write = True
     elif token == '--list-actions':
       list_actions = True
+    elif token == '--runtime-check':
+      runtime_check = True
     else:
       remaining.append(token)
 
-  return allow_write, list_actions, remaining
+  return allow_write, list_actions, runtime_check, remaining
+
+
+def _runtime_check():
+  try:
+    import asana  # noqa: F401
+  except ImportError:
+    print('ERROR: Python package "asana" is not installed. Run scripts/check_prereqs.sh.', file=sys.stderr)
+    raise SystemExit(2)
+
+  print(f'python: {sys.version.split()[0]}')
+  print(f'python-executable: {sys.executable}')
+  print(f'asana-python: INSTALLED ({importlib.metadata.version("asana")})')
 
 
 def main():
-  allow_write, list_actions, remaining = _parse(sys.argv[1:])
+  allow_write, list_actions, runtime_check, remaining = _parse(sys.argv[1:])
 
   if list_actions:
     _print_actions()
+    return
+
+  if runtime_check:
+    _runtime_check()
     return
 
   if not remaining or remaining[0] in ('-h', '--help'):

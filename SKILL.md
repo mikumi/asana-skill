@@ -22,7 +22,7 @@ Use this skill to run repeatable Asana actions through scripts instead of embedd
 
 ## SDK Compatibility
 
-1. Use Asana Python SDK v5 (`pip3 install asana`).
+1. Use Asana Python SDK v5, provisioned by `uv` from `scripts/execute_action.py` inline script metadata.
 2. Follow the script implementation pattern: `asana.ApiClient` + `asana.<Resource>Api`.
 3. Do not use legacy `asana.Client` examples in this skill.
 
